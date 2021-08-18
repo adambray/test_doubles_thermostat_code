@@ -17,14 +17,17 @@ public class Thermostat {
     }
 
     public void run(float targetTemp) {
-        while (modeSwitch.currentMode() != Mode.OFF) {
-            if (modeSwitch.currentMode() == Mode.HEAT && thermometer.currentTemp() < targetTemp) {
-                heatController.turnOn();
-            }
+        if (modeSwitch.currentMode() == Mode.HEAT && thermometer.currentTemp() < targetTemp) {
+            heatController.turnOn();
+        }
 
-            if (modeSwitch.currentMode() == Mode.COOL && thermometer.currentTemp() > targetTemp) {
-                airConditioningController.turnOn();
-            }
+        if (modeSwitch.currentMode() == Mode.COOL && thermometer.currentTemp() > targetTemp) {
+            airConditioningController.turnOn();
+        }
+
+        if (modeSwitch.currentMode() == Mode.OFF) {
+            heatController.turnOff();
+            airConditioningController.turnOff();
         }
     }
 }

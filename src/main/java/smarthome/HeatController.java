@@ -1,44 +1,45 @@
 package smarthome;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class HeatController {
     private URL url;
+    private HttpClient httpClient;
 
     public HeatController(URL url) {
         this.url = url;
+        this.httpClient = HttpClient.newHttpClient();
     }
 
     public void turnOn() {
-        try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url + "/heater?power=on"))
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
 
-            connection.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-            out.writeBytes("?power=on");
-            out.flush();
-            out.close();
-        } catch (IOException e) {
+        try {
+            httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     public void turnOff() {
-        try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("GET");
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url + "/heater?power=off"))
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
 
-            connection.setDoOutput(true);
-            DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-            out.writeBytes("?power=off");
-            out.flush();
-            out.close();
-        } catch (IOException e) {
+        try {
+            httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
+
     }
 }
