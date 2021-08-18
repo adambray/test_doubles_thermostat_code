@@ -1,15 +1,15 @@
 package smarthome;
 
 public class Thermostat {
-    private final ModeSwitch modeSwitch;
+    private final HttpModeSwitch modeSwitch;
     private final HeatController heatController;
     private final AirConditioningController airConditioningController;
-    private Thermometer thermometer;
+    private HttpThermometer thermometer;
 
-    public Thermostat(ModeSwitch modeSwitch,
+    public Thermostat(HttpModeSwitch modeSwitch,
                       HeatController heatController,
                       AirConditioningController airConditioningController,
-                      Thermometer thermometer) {
+                      HttpThermometer thermometer) {
         this.modeSwitch = modeSwitch;
         this.heatController = heatController;
         this.airConditioningController = airConditioningController;

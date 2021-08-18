@@ -8,10 +8,10 @@ public class Main {
         var localServer = new URL("http://localhost:8080");
 
         var thermostat = new Thermostat(
-          new ModeSwitch(localServer),
-          new HeatController(localServer),
-          new AirConditioningController(localServer),
-          new Thermometer(localServer)
+          new HttpModeSwitch(localServer),
+          new HttpHeatController(localServer),
+          new HttpAirConditioningController(localServer),
+          new HttpThermometer(localServer)
         );
 
         while(true) {
