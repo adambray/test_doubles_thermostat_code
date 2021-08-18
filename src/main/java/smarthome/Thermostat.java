@@ -29,12 +29,5 @@ public class Thermostat {
             heatController.turnOff();
             airConditioningController.turnOff();
         }
-
-        heatController.turnOff();
-        airConditioningController.turnOff();
-    }
-
-    public void runOnce(float targetTemp) {
-
     }
 }
